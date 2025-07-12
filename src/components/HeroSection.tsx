@@ -42,7 +42,7 @@ const HeroSection = () => {
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button variant="browse" size="lg">
-                  Browse Items
+                  <a href="/categories">Browse Items</a>
                 </Button>
               </div>
             </div>
