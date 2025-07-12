@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Recycle, Leaf, User, Mail, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,6 +14,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   // Typewriter animation state (looping, smooth)
   const typewriterText = "Wear.Share.Care!";
@@ -55,14 +58,30 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login process
-    setTimeout(() => {
+    try {
+      const success = await login(email, password);
+      if (success) {
+        toast({
+          title: "Welcome to VastraVerse!",
+          description: "Login successful. Start your sustainable fashion journey.",
+        });
+        navigate("/");
+      } else {
+        toast({
+          title: "Login failed",
+          description: "Invalid username or password. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Welcome to VastraVerse!",
-        description: "Login successful. Start your sustainable fashion journey.",
+        title: "Error",
+        description: "An error occurred during login. Please try again.",
+        variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -121,8 +140,8 @@ export default function Login() {
                     <User className="w-5 h-5" />
                   </span>
                   <Input
-                    id="email"
-                    type="email"
+                    id="username"
+                    type="text"
                     placeholder="Username"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
