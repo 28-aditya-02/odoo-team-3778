@@ -1,3 +1,6 @@
+
+Video Link: https://drive.google.com/file/d/1gyTOgrc7ltPYbjURqO8OpVnCApPSndA7/view
+
 # 👚 VastraVerse – Community Clothing Exchange Platform
 
 **VastraVerse** is a web-based platform designed to encourage sustainable fashion by allowing users to exchange unused clothing through direct swaps or a point-based redemption system. Our goal is to reduce textile waste and promote conscious consumption by building a community that reuses, not discards.
